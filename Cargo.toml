@@ -1,0 +1,13 @@
+[package]
+name = "quack-in-transporter"
+version = "0.1.0"
+authors = ["Jonathas-Conceicao <jadoliveira@inf.ufpel.edu.br>"]
+edition = "2018"
+
+[[bin]]
+name = "unpinned"
+path = "src/unpinned.rs"
+
+[[bin]]
+name = "pinned"
+path = "src/pinned.rs"
