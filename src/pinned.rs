@@ -14,13 +14,19 @@ impl Quack for Duck {
 
 struct Transporter<A>(A);
 
+impl<A> Transporter<A> {
+    fn animal(self: Pin<&Self>) -> Pin<&A> {
+        unsafe { Pin::map_unchecked(self, |t| &t.0) }
+    }
+}
+
 impl<Animal: Quack> Quack for Transporter<Animal> {
     fn quack(self: Pin<&Self>) {
-        self.0.quack()
+        self.animal().quack()
     }
 }
 
 fn main() {
-    let duck_in_transporter = Transporter(Duck);
+    let duck_in_transporter = unsafe { Pin::new_unchecked(&Transporter(Duck)) };
     duck_in_transporter.quack();
 }
